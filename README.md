@@ -23,7 +23,7 @@ Modern SaaS CRM dashboard for startup lead intelligence, workflow tracking, anal
 ## Roadmap
 
 - [x] Initial architecture setup
-- [ ] Dashboard shell
+- [x] Dashboard shell
 - [ ] Lead management system
 - [ ] Analytics dashboard
 - [ ] Authentication
