@@ -1,0 +1,17 @@
+import type { HTMLAttributes } from 'react'
+import { cn } from '../../lib/utils'
+
+export function SectionCard({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        'rounded-2xl border border-slate-800 bg-surface-muted p-5 shadow-soft',
+        className,
+      )}
+      {...props}
+    />
+  )
+}

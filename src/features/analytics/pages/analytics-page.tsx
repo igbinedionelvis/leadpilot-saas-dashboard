@@ -7,7 +7,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { Card } from '../../../components/ui/card'
+import { PageHeader } from '../../../components/ui/page-header'
+import { SectionCard } from '../../../components/ui/section-card'
 
 const chartData = [
   { day: 'Mon', replies: 26, meetings: 7 },
@@ -22,14 +23,12 @@ const chartData = [
 export function AnalyticsPage() {
   return (
     <div className="space-y-6">
-      <section>
-        <h1 className="text-2xl font-semibold text-slate-100">Analytics</h1>
-        <p className="mt-1 text-sm text-slate-400">
-          Understand outbound performance and conversion trends over time.
-        </p>
-      </section>
+      <PageHeader
+        title="Analytics"
+        description="Understand outbound performance and conversion trends over time."
+      />
 
-      <Card className="h-[380px]">
+      <SectionCard className="h-[380px]">
         <h2 className="mb-4 text-lg font-semibold text-slate-100">Weekly performance</h2>
         <ResponsiveContainer width="100%" height="90%">
           <LineChart data={chartData}>
@@ -47,7 +46,7 @@ export function AnalyticsPage() {
             <Line type="monotone" dataKey="meetings" stroke="#22d3ee" strokeWidth={2.5} />
           </LineChart>
         </ResponsiveContainer>
-      </Card>
+      </SectionCard>
     </div>
   )
 }

@@ -2,22 +2,37 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { Navbar } from './navbar'
 import { Sidebar } from './sidebar'
-import { TopNavbar } from './top-navbar'
 
 export function AppShell() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
   const location = useLocation()
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-[260px_1fr]">
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
+    <div className="grid min-h-screen lg:grid-cols-[1fr]">
+      <motion.aside
+        className="fixed inset-y-0 left-0 z-20 hidden border-r border-slate-800 bg-surface-muted lg:block"
+        animate={{ width: isSidebarCollapsed ? 88 : 260 }}
+        transition={{ type: 'spring', damping: 26, stiffness: 240 }}
+      >
+        <Sidebar isCollapsed={isSidebarCollapsed} />
+      </motion.aside>
 
       {isSidebarOpen && (
-        <div className="fixed inset-0 z-30 bg-slate-950/65 lg:hidden">
-          <div className="h-full w-[280px] border-r border-slate-800 bg-surface-muted">
+        <motion.div
+          className="fixed inset-0 z-30 bg-slate-950/65 lg:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="h-full w-[280px] border-r border-slate-800 bg-surface-muted"
+            initial={{ x: -24, opacity: 0.7 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -24, opacity: 0.7 }}
+          >
             <div className="flex justify-end p-3">
               <button
                 type="button"
@@ -28,12 +43,20 @@ export function AppShell() {
               </button>
             </div>
             <Sidebar onNavigate={() => setIsSidebarOpen(false)} />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
 
-      <div className="flex min-w-0 flex-col">
-        <TopNavbar onOpenSidebar={() => setIsSidebarOpen(true)} />
+      <motion.div
+        className="flex min-w-0 flex-col"
+        animate={{ paddingLeft: isSidebarCollapsed ? 88 : 260 }}
+        transition={{ type: 'spring', damping: 26, stiffness: 240 }}
+      >
+        <Navbar
+          onOpenMobileSidebar={() => setIsSidebarOpen(true)}
+          onToggleDesktopSidebar={() => setIsSidebarCollapsed((prev) => !prev)}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
         <main className="flex-1 p-4 sm:p-6">
           <AnimatePresence mode="wait">
             <motion.div
@@ -47,7 +70,7 @@ export function AppShell() {
             </motion.div>
           </AnimatePresence>
         </main>
-      </div>
+      </motion.div>
     </div>
   )
 }
