@@ -1,0 +1,40 @@
+import { BarChart3, LayoutDashboard, Settings, UserRoundSearch } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+import { cn } from '../../lib/utils'
+
+const navItems = [
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/leads', label: 'Leads', icon: UserRoundSearch },
+  { to: '/analytics', label: 'Analytics', icon: BarChart3 },
+  { to: '/settings', label: 'Settings', icon: Settings },
+]
+
+export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <aside className="flex h-full w-full flex-col border-r border-slate-800 bg-surface-muted p-4">
+      <div className="mb-8 px-2">
+        <p className="text-xs uppercase tracking-[0.2em] text-slate-500">LeadPilot</p>
+        <p className="mt-1 text-lg font-semibold text-slate-100">Growth Console</p>
+      </div>
+
+      <nav className="space-y-1">
+        {navItems.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            onClick={onNavigate}
+            className={({ isActive }) =>
+              cn(
+                'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800/80',
+                isActive && 'bg-slate-800 text-white',
+              )
+            }
+          >
+            <Icon className="h-4 w-4" />
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+  )
+}
