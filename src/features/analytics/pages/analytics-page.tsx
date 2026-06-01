@@ -1,3 +1,8 @@
+import { LeadSourcesChart } from "../components/lead-sources-chart";
+import { IndustryBreakdownChart } from "../components/industry-breakdown-chart";
+import { PipelineDistributionChart } from "../components/pipeline-distribution-chart";
+import { ConversionFunnel } from "../components/conversion-funnel";
+
 import {
   CartesianGrid,
   Line,
@@ -6,19 +11,19 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts'
-import { PageHeader } from '../../../components/ui/page-header'
-import { SectionCard } from '../../../components/ui/section-card'
+} from "recharts";
+import { PageHeader } from "../../../components/ui/page-header";
+import { SectionCard } from "../../../components/ui/section-card";
 
 const chartData = [
-  { day: 'Mon', replies: 26, meetings: 7 },
-  { day: 'Tue', replies: 32, meetings: 8 },
-  { day: 'Wed', replies: 35, meetings: 9 },
-  { day: 'Thu', replies: 30, meetings: 7 },
-  { day: 'Fri', replies: 38, meetings: 10 },
-  { day: 'Sat', replies: 20, meetings: 4 },
-  { day: 'Sun', replies: 24, meetings: 5 },
-]
+  { day: "Mon", replies: 26, meetings: 7 },
+  { day: "Tue", replies: 32, meetings: 8 },
+  { day: "Wed", replies: 35, meetings: 9 },
+  { day: "Thu", replies: 30, meetings: 7 },
+  { day: "Fri", replies: 38, meetings: 10 },
+  { day: "Sat", replies: 20, meetings: 4 },
+  { day: "Sun", replies: 24, meetings: 5 },
+];
 
 export function AnalyticsPage() {
   return (
@@ -29,7 +34,9 @@ export function AnalyticsPage() {
       />
 
       <SectionCard className="h-[380px]">
-        <h2 className="mb-4 text-lg font-semibold text-slate-100">Weekly performance</h2>
+        <h2 className="mb-4 text-lg font-semibold text-slate-100">
+          Weekly performance
+        </h2>
         <ResponsiveContainer width="100%" height="90%">
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#23314b" />
@@ -37,16 +44,33 @@ export function AnalyticsPage() {
             <YAxis stroke="#94a3b8" />
             <Tooltip
               contentStyle={{
-                background: '#0f172a',
-                border: '1px solid #334155',
-                borderRadius: '10px',
+                background: "#0f172a",
+                border: "1px solid #334155",
+                borderRadius: "10px",
               }}
             />
-            <Line type="monotone" dataKey="replies" stroke="#818cf8" strokeWidth={2.5} />
-            <Line type="monotone" dataKey="meetings" stroke="#22d3ee" strokeWidth={2.5} />
+            <Line
+              type="monotone"
+              dataKey="replies"
+              stroke="#818cf8"
+              strokeWidth={2.5}
+            />
+            <Line
+              type="monotone"
+              dataKey="meetings"
+              stroke="#22d3ee"
+              strokeWidth={2.5}
+            />
           </LineChart>
         </ResponsiveContainer>
       </SectionCard>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <LeadSourcesChart />
+        <IndustryBreakdownChart />
+        <PipelineDistributionChart />
+        <ConversionFunnel />
+      </section>
     </div>
-  )
+  );
 }
