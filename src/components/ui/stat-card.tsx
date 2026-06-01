@@ -1,6 +1,5 @@
 import { Badge } from "./badge";
 import { SectionCard } from "./section-card";
-import CountUp from "react-countup";
 
 type StatCardProps = {
   label: string;
