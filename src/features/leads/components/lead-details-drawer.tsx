@@ -1,14 +1,14 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { X } from 'lucide-react'
-import { Badge } from '../../../components/ui/badge'
-import { SectionCard } from '../../../components/ui/section-card'
-import { LeadStatusBadge, OutreachStatusBadge } from './lead-status-badge'
-import type { Lead } from '../types'
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
+import { Badge } from "../../../components/ui/badge";
+import { SectionCard } from "../../../components/ui/section-card";
+import { LeadStatusBadge, OutreachStatusBadge } from "./lead-status-badge";
+import type { Lead } from "../types";
 
 type LeadDetailsDrawerProps = {
-  lead: Lead | null
-  onClose: () => void
-}
+  lead: Lead | null;
+  onClose: () => void;
+};
 
 export function LeadDetailsDrawer({ lead, onClose }: LeadDetailsDrawerProps) {
   return (
@@ -23,23 +23,31 @@ export function LeadDetailsDrawer({ lead, onClose }: LeadDetailsDrawerProps) {
         >
           <motion.aside
             className="absolute right-0 top-0 h-full w-full max-w-xl overflow-y-auto border-l border-slate-800 bg-surface p-5 sm:p-6"
-            initial={{ x: 40, opacity: 0.8 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 40, opacity: 0.8 }}
-            transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{
+              type: "spring",
+              damping: 24,
+              stiffness: 220,
+            }}
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-5 flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.15em] text-slate-500">{lead.industry}</p>
-                <h2 className="mt-1 text-2xl font-semibold text-slate-100">{lead.company}</h2>
+                <p className="text-xs uppercase tracking-[0.15em] text-slate-500">
+                  {lead.industry}
+                </p>
+                <h2 className="mt-1 text-2xl font-semibold text-slate-100">
+                  {lead.company}
+                </h2>
                 <p className="mt-1 text-sm text-slate-400">
                   {lead.contactName} · {lead.contactRole}
                 </p>
               </div>
               <button
                 type="button"
-                className="rounded-lg border border-slate-700 p-2 text-slate-300"
+                className="rounded-lg borderborder-slate-700 p-2 text-slate-300 transition-all duration-200 hover:border-slate-500 hover:bg-slate-800 hover:text-white"
                 onClick={onClose}
               >
                 <X className="h-4 w-4" />
@@ -54,16 +62,26 @@ export function LeadDetailsDrawer({ lead, onClose }: LeadDetailsDrawerProps) {
 
             <div className="space-y-4">
               <SectionCard className="space-y-2">
-                <h3 className="text-sm font-semibold text-slate-100">Company details</h3>
-                <p className="text-sm text-slate-300">Website: {lead.website}</p>
-                <p className="text-sm text-slate-300">Team size: {lead.employeeRange}</p>
+                <h3 className="text-sm font-semibold text-slate-100">
+                  Company details
+                </h3>
+                <p className="text-sm text-slate-300">
+                  Website: {lead.website}
+                </p>
+                <p className="text-sm text-slate-300">
+                  Team size: {lead.employeeRange}
+                </p>
                 <p className="text-sm text-slate-300">Source: {lead.source}</p>
-                <p className="text-sm text-slate-300">Date added: {lead.dateAdded}</p>
+                <p className="text-sm text-slate-300">
+                  Date added: {lead.dateAdded}
+                </p>
               </SectionCard>
 
               <SectionCard className="space-y-2">
                 <h3 className="text-sm font-semibold text-slate-100">Notes</h3>
-                <p className="text-sm leading-relaxed text-slate-300">{lead.notes}</p>
+                <p className="text-sm leading-relaxed text-slate-300">
+                  {lead.notes}
+                </p>
               </SectionCard>
 
               <SectionCard className="space-y-2">
@@ -76,10 +94,15 @@ export function LeadDetailsDrawer({ lead, onClose }: LeadDetailsDrawerProps) {
               </SectionCard>
 
               <SectionCard className="space-y-3">
-                <h3 className="text-sm font-semibold text-slate-100">Activity timeline</h3>
+                <h3 className="text-sm font-semibold text-slate-100">
+                  Activity timeline
+                </h3>
                 <ol className="space-y-3">
                   {lead.timeline.map((item) => (
-                    <li key={`${lead.id}-${item.time}`} className="rounded-lg bg-slate-900/70 px-3 py-2">
+                    <li
+                      key={`${lead.id}-${item.time}`}
+                      className="rounded-lg bg-slate-900/70 px-3 py-2"
+                    >
                       <p className="text-sm text-slate-200">{item.label}</p>
                       <p className="mt-1 text-xs text-slate-500">{item.time}</p>
                     </li>
@@ -91,5 +114,5 @@ export function LeadDetailsDrawer({ lead, onClose }: LeadDetailsDrawerProps) {
         </motion.div>
       ) : null}
     </AnimatePresence>
-  )
+  );
 }
