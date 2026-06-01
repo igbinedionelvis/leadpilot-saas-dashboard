@@ -1,13 +1,13 @@
-import { Menu, Search } from 'lucide-react'
-import { useAuthStore } from '../../app/store/auth-store'
-import { Button } from '../ui/button'
+import { Menu, Search } from "lucide-react";
+import { useAuthStore } from "../../app/store/auth-store";
+import { Button } from "../ui/button";
 
 type TopNavbarProps = {
-  onOpenSidebar: () => void
-}
+  onOpenSidebar: () => void;
+};
 
 export function TopNavbar({ onOpenSidebar }: TopNavbarProps) {
-  const { isAuthenticated, signIn, signOut, userName } = useAuthStore()
+  const { isAuthenticated, signIn, signOut, userName } = useAuthStore();
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-800 bg-surface/85 backdrop-blur">
@@ -20,10 +20,15 @@ export function TopNavbar({ onOpenSidebar }: TopNavbarProps) {
           >
             <Menu className="h-4 w-4" />
           </button>
-          <div className="hidden items-center gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-sm text-slate-400 md:flex">
+          <label className="hidden items-center gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-sm text-slate-400 transition-all duration-200 focus-within:border-cyan-400 focus-within:ring-2 focus-within:ring-cyan-400/20 md:flex">
             <Search className="h-4 w-4" />
-            Search leads, companies, or campaigns...
-          </div>
+
+            <input
+              type="search"
+              placeholder="Search leads, companies, or campaigns..."
+              className="w-72 bg-transparent text-slate-200 outline-none placeholder:text-slate-500"
+            />
+          </label>
         </div>
 
         <div className="flex items-center gap-3">
@@ -32,10 +37,10 @@ export function TopNavbar({ onOpenSidebar }: TopNavbarProps) {
             <p className="text-xs text-slate-500">Owner</p>
           </div>
           <Button variant="ghost" onClick={isAuthenticated ? signOut : signIn}>
-            {isAuthenticated ? 'Sign out' : 'Sign in'}
+            {isAuthenticated ? "Sign out" : "Sign in"}
           </Button>
         </div>
       </div>
     </header>
-  )
+  );
 }
